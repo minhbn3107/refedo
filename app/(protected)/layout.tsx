@@ -6,9 +6,9 @@ interface ProtectedLayoutProps {
 
 function ProtectedLayout({ children }: ProtectedLayoutProps) {
     return (
-        <div className="h-full w-full flex flex-col gap-y-10 items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
+        <div className="flex flex-col min-h-screen gap-y-10 items-center justify-center overflow-y-auto bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
             <Navbar />
-            {children}
+            <div className="flex-grow">{children}</div>
         </div>
     );
 }
