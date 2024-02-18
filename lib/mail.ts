@@ -1,6 +1,9 @@
 // import { Resend } from "resend";
 import nodemailer from "nodemailer";
 
+const user = process.env.EMAIL;
+const pass = process.env.PASSWORD;
+
 // const resend = new Resend(process.env.RESEND_API_KEY);
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -8,8 +11,8 @@ const transporter = nodemailer.createTransport({
     secure: true,
     service: "gmail",
     auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD,
+        user,
+        pass,
     },
 });
 
