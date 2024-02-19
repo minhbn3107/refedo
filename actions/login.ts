@@ -81,16 +81,6 @@ export const login = async (
                     userId: existingUser.id,
                 },
             });
-
-            const twoFactorConfirmation =
-                await getTwoFactorConfirmationByUserId(existingUser.id);
-
-            if (!twoFactorConfirmation) return { error: "Invalid code!" };
-
-            // Delete two factor confirmation for next sign in
-            await db.twoFactorConfirmation.delete({
-                where: { id: twoFactorConfirmation.id },
-            });
         } else {
             const twoFactorToken = await generateTwoFactorToken(
                 existingUser.email
