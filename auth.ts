@@ -88,6 +88,7 @@ export const {
             return token;
         },
     },
+    trustHost: true,
     adapter: PrismaAdapter(db),
     session: { strategy: "jwt" },
     ...authConfig,
