@@ -74,11 +74,7 @@ export const LoginForm = () => {
                         );
 
                         router.push("/auth/two-factor-authentication");
-                        navigator;
-                        console.log("Check1");
                     }
-
-                    console.log("Check");
                 })
                 .catch(() => setError("Something went wrong!"));
         });
