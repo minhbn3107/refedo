@@ -47,21 +47,21 @@ export const twoFactorAuthentication = async (
         where: { id: twoFactorToken.id },
     });
 
-    const existingConfirmation = await getTwoFactorConfirmationByUserId(
-        existingUser.id
-    );
+    // const existingConfirmation = await getTwoFactorConfirmationByUserId(
+    //     existingUser.id
+    // );
 
-    if (existingConfirmation) {
-        await db.twoFactorConfirmation.delete({
-            where: { id: existingConfirmation.id },
-        });
-    }
+    // if (existingConfirmation) {
+    //     await db.twoFactorConfirmation.delete({
+    //         where: { id: existingConfirmation.id },
+    //     });
+    // }
 
-    await db.twoFactorConfirmation.create({
-        data: {
-            userId: existingUser.id,
-        },
-    });
+    // await db.twoFactorConfirmation.create({
+    //     data: {
+    //         userId: existingUser.id,
+    //     },
+    // });
 
     try {
         await signIn("credentials", {
