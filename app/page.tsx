@@ -1,7 +1,5 @@
+import { SearchForm } from "@/components/homepage/search-form";
 import { Poppins } from "next/font/google";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { LoginButton } from "@/components/auth/login-button";
 
 const font = Poppins({
     subsets: ["latin"],
@@ -10,26 +8,15 @@ const font = Poppins({
 
 export default function Home() {
     return (
-        <main className="flex h-full flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
-            <div className="space-y-6 text-center">
-                <h1
-                    className={cn(
-                        "text-6xl font-semibold text-white drop-shadow-md",
-                        font.className
-                    )}
-                >
-                    🔐 Auth
+        <main className="flex flex-col items-center">
+            <div className="flex flex-col items-center">
+                <h1 className="font-bold text-5xl w-full text-center mt-40">
+                    Redefine Documents
                 </h1>
-                <p className="text-white text-lg">
-                    A simple authentication service
+                <p className="font-medium text-2xl w-full text-center mt-2">
+                    Search outstanding documents like never before!
                 </p>
-                <div>
-                    <LoginButton mode="modal" asChild>
-                        <Button variant="secondary" size="lg">
-                            Sign in
-                        </Button>
-                    </LoginButton>
-                </div>
+                <SearchForm />
             </div>
         </main>
     );

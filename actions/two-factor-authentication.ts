@@ -3,7 +3,7 @@
 import * as z from "zod";
 
 import { TwoFactorAuthenticationSchema } from "@/schemas";
-import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
+// import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";

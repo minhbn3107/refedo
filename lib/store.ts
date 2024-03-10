@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { twoFactorAuthenticationReducer } from "./features/twoFactorAuthentication/twoFactorAuthenticationSlice";
+import { courseNameReducer } from "./features/courseName/courseNameSlice";
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
             twoFactorAuthentication: twoFactorAuthenticationReducer,
+            courseName: courseNameReducer,
         },
     });
 };

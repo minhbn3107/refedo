@@ -1,6 +1,10 @@
 import { UserRole } from "@prisma/client";
 import * as z from "zod";
 
+export const SearchSchema = z.object({
+    data: z.string(),
+});
+
 export const SettingsSchema = z
     .object({
         name: z.optional(z.string()),
