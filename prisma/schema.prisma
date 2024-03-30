@@ -15,16 +15,15 @@ enum UserRole {
 }
 
 model User {
-  id                 String           @id @default(cuid())
+  id                 String    @id @default(cuid())
   name               String?
-  email              String?          @unique
+  email              String?   @unique
   emailVerified      DateTime?
   image              String?
   password           String?
-  role               UserRole         @default(USER)
+  role               UserRole  @default(USER)
   accounts           Account[]
-  isTwoFactorEnabled Boolean          @default(false)
-  uploadDocuments    UploadDocument[]
+  isTwoFactorEnabled Boolean   @default(false)
   // twoFactorConfirmation TwoFactorConfirmation?
 }
 
@@ -84,24 +83,37 @@ model TwoFactorToken {
 // }
 
 model UploadDocument {
-  id      String   @id @default(uuid())
-  name    String
-  fileUrl String
-  userId  String
-  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  type    Boolean  @default(true)
-  course  Course[]
+  id           String             @id @default(uuid())
+  name         String
+  fileUrl      String
+  userId       String
+  type         Boolean            @default(true)
+  dateCreated  DateTime           @default(now())
+  dateModified DateTime           @default(now())
+  courses      CourseOnDocument[]
 
-  @@unique([userId])
+  @@unique([name, userId])
 }
 
 model Course {
-  id             String           @id @default(uuid())
-  name           String
-  description    String?
-  userId         String
-  type           Boolean
-  uploadDocument UploadDocument[]
+  id              String             @id @default(uuid())
+  name            String
+  tags            String[]
+  description     String?
+  userId          String
+  type            Boolean            @default(true)
+  dateCreated     DateTime           @default(now())
+  dateModified    DateTime           @default(now())
+  uploadDocuments CourseOnDocument[]
 
-  @@unique([userId, name])
+  @@unique([name, userId])
+}
+
+model CourseOnDocument {
+  uploadDocument   UploadDocument @relation(fields: [uploadDocumentId], references: [id])
+  uploadDocumentId String
+  course           Course         @relation(fields: [courseId], references: [id])
+  courseId         String
+
+  @@id([uploadDocumentId, courseId])
 }

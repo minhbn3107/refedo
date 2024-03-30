@@ -11,7 +11,6 @@ const courseNameSlice = createSlice({
         saveCourseName: (state, action) => {
             if (action.payload) {
                 state.courseName = action.payload;
-                console.log(state.courseName);
             }
         },
         resetCourseName: (state) => {

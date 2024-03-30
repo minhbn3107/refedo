@@ -8,7 +8,8 @@ import Logo from "@/public/favicon/android-chrome-512x512.png";
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@/components/auth/user-button";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { LoginButton } from "@/components/auth/login-button";
+import { CustomButton } from "@/components/custom-button";
+import { LoginForm } from "./auth/login-form";
 
 export default function Navbar() {
     const user = useCurrentUser();
@@ -58,16 +59,22 @@ export default function Navbar() {
                 >
                     <Link href="/upload-document">Upload</Link>
                 </Button>
+                <Button
+                    asChild
+                    variant={pathname == "/course" ? "default" : "outline"}
+                >
+                    <Link href="/course">Course</Link>
+                </Button>
             </div>
             {user ? (
                 <UserButton />
             ) : (
                 <div className="space-y-6 text-center">
-                    <LoginButton mode="modal" asChild>
+                    <CustomButton mode="redirect" asChild route="/auth/login">
                         <Button variant="default" size="lg">
                             Sign in
                         </Button>
-                    </LoginButton>
+                    </CustomButton>
                 </div>
             )}
         </nav>

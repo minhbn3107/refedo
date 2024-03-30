@@ -13,7 +13,7 @@ import { useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { uploadDocument } from "@/actions/upload-document";
 import { useAppSelector } from "@/lib/hooks";
-import { selectCourseName } from "@/lib/features/courseName/courseNameSlice";
+import { selectCourseName } from "@/lib/features/course-name/courseNameSlice";
 
 const formatFileSize = (fileSize: number) => {
     if (fileSize > 1000000) {
@@ -28,8 +28,10 @@ function DropZone() {
     const onDrop = useCallback((acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
     }, []);
-    const courseName = useAppSelector(selectCourseName);
-    // Add collection for file upload at a time
+    const selectedCourse = useAppSelector(selectCourseName);
+
+    const courseName = selectedCourse.courseName;
+
     const { startUpload, permittedFileInfo } = useUploadThing(
         "documentUpload",
         {
@@ -38,12 +40,19 @@ function DropZone() {
                     uploadDocument(
                         file.name,
                         file.serverData.file.url,
-                        file.serverData.uploadedBy
-                    )
-                );
+                        file.serverData.uploadedBy,
+                        courseName
+                    ).then((data) => {
+                        if (data?.error) {
+                            toast.error(data.error);
+                        }
 
-                toast.success("Uploaded Successfully!");
-                handleRemoveAllFile();
+                        if (data?.success) {
+                            toast.success(data.success);
+                            handleRemoveAllFile();
+                        }
+                    })
+                );
 
                 setIsUploading(false);
             },
@@ -141,7 +150,7 @@ function DropZone() {
                         variant="custom"
                         className="mt-4 rounded-full"
                         onClick={() => {
-                            if (courseName) {
+                            if (!courseName) {
                                 toast.error(
                                     "Please choose a course for uploading files"
                                 );

@@ -21,4 +21,6 @@ export const getUploadDocumentByUserId = async (
             userId,
         },
     });
+
+    return { success: "File successfully uploaded" };
 };

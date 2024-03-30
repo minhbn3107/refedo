@@ -14,7 +14,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { saveCourseName } from "@/lib/features/courseName/courseNameSlice";
+import { saveCourseName } from "@/lib/features/course-name/courseNameSlice";
 import { useAppDispatch } from "@/lib/hooks";
 import { useEffect, useState } from "react";
 

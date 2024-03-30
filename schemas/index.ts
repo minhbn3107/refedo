@@ -1,6 +1,15 @@
 import { UserRole } from "@prisma/client";
 import * as z from "zod";
 
+export const NewCourse = z.object({
+    name: z.string().max(100, {
+        message: "Length must not exceed 100 characters",
+    }),
+    description: z.string().max(1000, {
+        message: "Length must not exceed 1000 characters",
+    }),
+});
+
 export const SearchSchema = z.object({
     data: z.string(),
 });

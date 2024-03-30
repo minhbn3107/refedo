@@ -23,7 +23,7 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
 import Link from "next/link";
-import { saveDataForTwoFactorAuthentication } from "@/lib/features/twoFactorAuthentication/twoFactorAuthenticationSlice";
+import { saveDataForTwoFactorAuthentication } from "@/lib/features/two-factor-authentication/twoFactorAuthenticationSlice";
 import { useAppDispatch } from "@/lib/hooks";
 
 export const LoginForm = () => {

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { twoFactorAuthenticationReducer } from "./features/twoFactorAuthentication/twoFactorAuthenticationSlice";
-import { courseNameReducer } from "./features/courseName/courseNameSlice";
+import { twoFactorAuthenticationReducer } from "./features/two-factor-authentication/twoFactorAuthenticationSlice";
+import { courseNameReducer } from "./features/course-name/courseNameSlice";
 
 export const makeStore = () => {
     return configureStore({

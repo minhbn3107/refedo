@@ -23,7 +23,7 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { twoFactorAuthentication } from "@/actions/two-factor-authentication";
 import { useAppSelector } from "@/lib/hooks";
-import { selectDataForTwoFactorAuthentication } from "@/lib/features/twoFactorAuthentication/twoFactorAuthenticationSlice";
+import { selectDataForTwoFactorAuthentication } from "@/lib/features/two-factor-authentication/twoFactorAuthenticationSlice";
 
 export const TwoFactorAuthenticationForm = () => {
     const [error, setError] = useState<string | undefined>("");
