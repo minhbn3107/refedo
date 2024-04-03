@@ -14,7 +14,13 @@ export default function CreateCourse() {
                 padding
                 title="Create New Course"
                 description="Create your new course and then add some document for it!"
-                comp={<NewCourseForm />}
+                comp={
+                    <NewCourseForm
+                        setOpen={function (open: boolean): void {
+                            throw new Error("Function not implemented.");
+                        }}
+                    />
+                }
             >
                 <Button variant="outline">+ Create New Course</Button>
             </CustomButton>

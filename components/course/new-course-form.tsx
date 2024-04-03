@@ -4,7 +4,6 @@ import * as z from "zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSearchParams, useRouter } from "next/navigation";
 
 import {
     Form,
@@ -20,22 +19,20 @@ import { NewCourse } from "@/schemas";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { useAppDispatch } from "@/lib/hooks";
 import { DialogFooter } from "../ui/dialog";
 import { newCourse } from "@/actions/new-course";
-import { useSession } from "next-auth/react";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { toast } from "sonner";
 
-export const NewCourseForm = () => {
-    const searchParams = useSearchParams();
-    const urlError =
-        searchParams.get("error") === "OAuthAccountNotLinked"
-            ? "Email already in use with different provider!"
-            : "";
-    const router = useRouter();
+interface NewCourseFormProps {
+    setOpen: (open: boolean) => void;
+}
+
+export const NewCourseForm: React.FC<NewCourseFormProps> = ({ setOpen }) => {
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition();
-    const session = useSession();
+    const user = useCurrentUser();
 
     const form = useForm<z.infer<typeof NewCourse>>({
         resolver: zodResolver(NewCourse),
@@ -50,14 +47,21 @@ export const NewCourseForm = () => {
         setSuccess("");
 
         startTransition(() => {
-            newCourse(values, session.data?.user.id as string).then((data) => {
+            newCourse(values, user?.id as string).then((data) => {
                 if (data?.error) {
                     setError(data.error);
                 }
 
                 if (data?.success) {
                     form.reset();
+                    toast.success(data.success, {
+                        action: {
+                            label: "Close",
+                            onClick: () => {},
+                        },
+                    });
                     setSuccess(data.success);
+                    setOpen(false);
                 }
             });
         });
@@ -109,7 +113,7 @@ export const NewCourseForm = () => {
                                 )}
                             />
                         </div>
-                        <FormError message={error || urlError} />
+                        <FormError message={error} />
                         <FormSuccess message={success} />
                         <DialogFooter>
                             <Button type="submit">Add New Course</Button>

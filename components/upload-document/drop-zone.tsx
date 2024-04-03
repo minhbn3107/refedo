@@ -28,9 +28,7 @@ function DropZone() {
     const onDrop = useCallback((acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
     }, []);
-    const selectedCourse = useAppSelector(selectCourseName);
-
-    const courseName = selectedCourse.courseName;
+    const courseName = useAppSelector(selectCourseName);
 
     const { startUpload, permittedFileInfo } = useUploadThing(
         "documentUpload",
@@ -44,11 +42,21 @@ function DropZone() {
                         courseName
                     ).then((data) => {
                         if (data?.error) {
-                            toast.error(data.error);
+                            toast.error(data.error, {
+                                action: {
+                                    label: "Close",
+                                    onClick: () => {},
+                                },
+                            });
                         }
 
                         if (data?.success) {
-                            toast.success(data.success);
+                            toast.success(data.success, {
+                                action: {
+                                    label: "Close",
+                                    onClick: () => {},
+                                },
+                            });
                             handleRemoveAllFile();
                         }
                     })
@@ -60,7 +68,12 @@ function DropZone() {
                 setIsUploading(false);
 
                 if (files.length > 5) {
-                    toast.error("Please upload only 5 files");
+                    toast.error("Please upload only 5 files", {
+                        action: {
+                            label: "Close",
+                            onClick: () => {},
+                        },
+                    });
                     return;
                 }
                 toast.error("Error uploading", {
@@ -75,7 +88,12 @@ function DropZone() {
                 });
             },
             onUploadBegin: () => {
-                toast.info("Upload has begun");
+                toast.info("Upload has begun", {
+                    action: {
+                        label: "Close",
+                        onClick: () => {},
+                    },
+                });
             },
         }
     );
@@ -152,7 +170,13 @@ function DropZone() {
                         onClick={() => {
                             if (!courseName) {
                                 toast.error(
-                                    "Please choose a course for uploading files"
+                                    "Please choose a course for uploading files",
+                                    {
+                                        action: {
+                                            label: "Close",
+                                            onClick: () => {},
+                                        },
+                                    }
                                 );
                                 return;
                             }

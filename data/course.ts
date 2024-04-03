@@ -11,3 +11,13 @@ export const getCourseNameListByUserId = async (userId: string) => {
         return null;
     }
 };
+
+export const getCourseListByUserId = async (userId: string) => {
+    try {
+        const courseList = await db.course.findMany({ where: { userId } });
+
+        return courseList;
+    } catch {
+        return null;
+    }
+};

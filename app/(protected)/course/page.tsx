@@ -1,17 +1,11 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-import DropZone from "@/components/upload-document/drop-zone";
-import { getCourseNameListByUserId } from "@/data/course-name-list";
-import { auth } from "@/auth";
 import CreateCourse from "@/components/course/create-course";
 import CourseList from "@/components/course/course-list";
+import { courseList } from "@/actions/course-list";
 
 export default async function CoursePage() {
-    const session = await auth();
-
-    const courses: string[] | null = await getCourseNameListByUserId(
-        session?.user?.id as string
-    );
+    const courses = await courseList();
 
     return (
         <Card className="flex flex-col w-full ">
@@ -20,7 +14,7 @@ export default async function CoursePage() {
                 <CreateCourse />
             </CardHeader>
             <CardContent className="min-h-screen">
-                <CourseList />
+                <CourseList courses={courses} />
             </CardContent>
         </Card>
     );

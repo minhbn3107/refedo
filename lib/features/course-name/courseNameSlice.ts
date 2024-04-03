@@ -19,7 +19,7 @@ const courseNameSlice = createSlice({
     },
 });
 
-export const selectCourseName = (state: any) => state.courseName;
+export const selectCourseName = (state: any) => state.courseName.courseName;
 
 export const { saveCourseName, resetCourseName } = courseNameSlice.actions;
 

@@ -10,13 +10,23 @@ import { toast } from "sonner";
 
 export default function AdminPage() {
     const onServerActionClick = () => {
-        admin().then((data) => {
+        admin().then((data: any) => {
             if (data.error) {
-                toast.error(data.error);
+                toast.error(data.error, {
+                    action: {
+                        label: "Close",
+                        onClick: () => {},
+                    },
+                });
             }
 
             if (data.success) {
-                toast.success(data.success);
+                toast.success(data.success, {
+                    action: {
+                        label: "Close",
+                        onClick: () => {},
+                    },
+                });
             }
         });
     };
@@ -24,9 +34,19 @@ export default function AdminPage() {
     const onApiRouteClick = () => {
         fetch("/api/admin").then((response) => {
             if (response.ok) {
-                toast.success("Allowed API Route!");
+                toast.success("Allowed API Route!", {
+                    action: {
+                        label: "Close",
+                        onClick: () => {},
+                    },
+                });
             } else {
-                toast.error("Forbidden API Route!");
+                toast.error("Forbidden API Route!", {
+                    action: {
+                        label: "Close",
+                        onClick: () => {},
+                    },
+                });
             }
         });
     };

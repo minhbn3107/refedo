@@ -1,11 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface TwoFactorAuthenticationProps {
-    email: string;
-    password: string;
-    callbackUrl: string;
-}
-
 const initialState = {
     email: "",
     password: "",

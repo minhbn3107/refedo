@@ -9,7 +9,7 @@ import {
     DialogHeader,
     DialogDescription,
 } from "@/components/ui/dialog";
-import { useState } from "react";
+import React, { useState, ReactNode, isValidElement } from "react";
 
 interface CustomButtonProps {
     children: React.ReactNode;
@@ -17,7 +17,7 @@ interface CustomButtonProps {
     asChild?: boolean;
     padding?: boolean;
     route?: string;
-    comp?: JSX.Element;
+    comp?: ReactNode;
     header?: boolean;
     title?: string;
     description?: string;
@@ -57,7 +57,10 @@ export const CustomButton = ({
                             <DialogDescription>{description}</DialogDescription>
                         </DialogHeader>
                     )}
-                    {comp}
+                    {isValidElement(comp)
+                        ? // @ts-expect-error or @ts-ignore
+                          React.cloneElement(comp, { setOpen })
+                        : comp}
                 </DialogContent>
             </Dialog>
         );
